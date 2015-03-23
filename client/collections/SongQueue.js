@@ -1,22 +1,31 @@
 // SongQueue.js - Defines a backbone collection class for the song queue.
 var SongQueue = Songs.extend({
 
+  initialize: function(){
+    this.on('add', this.enqueue, this);
+  },
+
   enqueue: function(song){
-    //increment end
-    //add song at new end index
+    if (this.length === 1) {
+      this.playFirst();
+    }
   },
 
   dequeue: function(song){
-    //increment start
-    //delete previous start
+    if (this.SongQueue(0) === song){
+      this.playNext();
+    } else {
+      this.remove()
+    }
   },
 
   playFirst: function(){
-    // set SongQueue[0] to currentSong 
+    this.at(0).play(); 
   },
 
   playNext: function(){
-
+    this.shift();
+    if ( this.length ){ this.playFirst(); }
   }
 
 });

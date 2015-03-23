@@ -5,14 +5,18 @@ var LibraryEntryView = Backbone.View.extend({
   tagName: 'tr',
 
   //hardcoded string of two table cells to contain the song details (artist and songname)
-  template: _.template('<td>(<%= artist %>)</td><td><%= title %></td>'),
+  template: _.template('<td>(<%= artist %>)</td><td><%= title %></td><td><button class="enqueue">Add to Queue</button></td>'),
 
   //the initialize function is unnecessary here because of how the view was called in its parent view. backbone
   //takes care of many variable definitions for us.
 
   events: {
+    // maybe move these out into methods?
     'click': function() {
       this.model.play();
+    },
+    'click .enqueue': function(song){
+      this.collection.enqueue(song);
     }
   },
 
