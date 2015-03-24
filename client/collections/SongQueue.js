@@ -33,7 +33,4 @@ var SongQueue = Songs.extend({
       this.remove(song);
     }
   }
-
-  
-
 });
