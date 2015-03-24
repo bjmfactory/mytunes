@@ -14,7 +14,6 @@ var SongQueue = Songs.extend({
   },
 
   playFirst: function(){
-    debugger;
     this.at(0).play(); 
   },
 
