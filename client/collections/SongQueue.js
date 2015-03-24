@@ -3,6 +3,8 @@ var SongQueue = Songs.extend({
 
   initialize: function(){
     this.on('add', this.enqueue, this);
+    this.on('dequeue', this.dequeue, this);
+    this.on('ended', this.playNext, this);
   },
 
   enqueue: function(song){
@@ -12,37 +14,25 @@ var SongQueue = Songs.extend({
   },
 
   dequeue: function(song){
-    if (this.SongQueue(0) === song){
+    if (this.at(0) === song){
       this.playNext();
     } else {
-      this.remove()
+      this.remove(song);
     }
   },
 
-  playFirst: function(){
-    this.at(0).play(); 
-  },
 
   playNext: function(){
     this.shift();
-    if ( this.length ){ this.playFirst(); }
+    if (this.length >= 1){
+      this.playFirst();
+    } else {
+      this.trigger('stop');
+    }
+  },
+  
+  playFirst: function(){
+    this.at(0).play(); 
   }
 
 });
-
-/*
-
-for backbone, start with the views
-what are you listening for? 
-And what methods do you call when you hear those events?
-Add that to the model
-
-In SongQueue
-methods: initialize, enqueue, dequeue, playNextSong
-
-In SongQueueView
-listen for a click on the add to queue button -> call enqueue
-listen for the end of the track -> call playNextSong (and dequeue?)
-
-
-*/
