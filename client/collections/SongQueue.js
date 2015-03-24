@@ -7,9 +7,23 @@ var SongQueue = Songs.extend({
     this.on('ended', this.playNext, this);
   },
 
-  enqueue: function(song){
+  enqueue: function(){
     if (this.length === 1) {
       this.playFirst();
+    }
+  },
+
+  playFirst: function(){
+    debugger;
+    this.at(0).play(); 
+  },
+
+  playNext: function(){
+    this.shift();
+    if (this.length > 0){
+      this.playFirst();
+    } else {
+      this.trigger('stop');
     }
   },
 
@@ -19,20 +33,8 @@ var SongQueue = Songs.extend({
     } else {
       this.remove(song);
     }
-  },
-
-
-  playNext: function(){
-    this.shift();
-    if (this.length >= 1){
-      this.playFirst();
-    } else {
-      this.trigger('stop');
-    }
-  },
-  
-  playFirst: function(){
-    this.at(0).play(); 
   }
+
+  
 
 });
